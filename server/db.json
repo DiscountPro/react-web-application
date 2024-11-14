@@ -1,0 +1,51 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin",
+      "ruc": "123456789",
+      "companyName": "Interbank",
+      "role": "CREDITOR"
+    },
+    {
+      "id": 2,
+      "username": "coolbox",
+      "password": "root",
+      "ruc": "9882738123123",
+      "companyName": "Rash Peru S.R.L",
+      "role": "CLIENT"
+    },
+    {
+      "id": 3,
+      "username": "user1",
+      "password": "password1",
+      "ruc": "1234567890123",
+      "companyName": "Company A",
+      "role": "CLIENT"
+    },
+    {
+      "id": 4,
+      "username": "user2",
+      "password": "password2",
+      "ruc": "9876543210987",
+      "companyName": "Company B",
+      "role": "CLIENT"
+    }
+  ],
+  "letters": [
+    {
+      "id": 1,
+      "currency": "DOLLARS",
+      "amount": 124.2,
+      "issueDate": "2024-11-13T08:00:00.000Z",
+      "expirationDate": "2025-02-13T08:00:00.000Z",
+      "interestRate": 12.5,
+      "interestRateType": "NOMINAL",
+      "capitalizationDays": "90",
+      "expenseId": 1,
+      "clientId": 1,
+      "ownerId": 2
+    }
+  ]
+}
