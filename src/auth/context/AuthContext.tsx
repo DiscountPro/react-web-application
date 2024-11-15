@@ -18,7 +18,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const response = await UserService.login(username, password)
 
     if (response.data.length) setUser(response.data[0])
-    else throw new Error('Invalid username or password')
+    else throw new Error('Usuario y/o contraseña incorrectos.')
   }
 
   const register = async function (user: Omit<User, 'id'>) {

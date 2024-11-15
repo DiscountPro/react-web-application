@@ -3,7 +3,9 @@ import { InputText } from 'primereact/inputtext'
 import { Password } from 'primereact/password'
 import { Button } from 'primereact/button'
 import { Controller, useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
+import { useState } from 'react'
 
 const GOOGLE_RECAPTCHA_KEY = import.meta.env.VITE_GOOGLE_RECAPTCHA_KEY ?? ''
 
@@ -12,22 +14,35 @@ interface FormState {
   password: string
   capValue: string
 }
+const defaultValues: FormState = {
+  username: '',
+  password: '',
+  capValue: '',
+}
 
 const LoginPage = () => {
-  const defaultValues: FormState = {
-    username: '',
-    password: '',
-    capValue: '',
-  }
-
+  const { login } = useAuth()
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm({ defaultValues })
 
-  const onSubmit = (data: FormState) => {
-    console.log(data)
+  const onSubmit = async ({ username, password }: FormState) => {
+    setError('')
+    setLoading(true)
+    try {
+      await login(username, password)
+      navigate('/letters')
+    } catch (err) {
+      console.error(err)
+      setError((err as Error).message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const getErrorMessage = (name: keyof FormState) => {
@@ -112,13 +127,20 @@ const LoginPage = () => {
               {getErrorMessage('capValue')}
             </div>
 
-            <Button className="justify-center">Iniciar sesión</Button>
+            <Button className="justify-center" loading={loading}>
+              Iniciar sesión
+            </Button>
+
             <div className="flex justify-center gap-1 text-sm">
               <span>¿No tienes una cuenta?</span>
               <Link to="/sign-up" className="text-indigo-500">
                 Regístrate aquí
               </Link>
             </div>
+
+            {error && (
+              <small className="text-xs p-error text-center">{error}</small>
+            )}
           </form>
         </div>
       </div>
