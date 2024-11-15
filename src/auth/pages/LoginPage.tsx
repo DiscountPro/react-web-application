@@ -3,6 +3,7 @@ import { InputText } from 'primereact/inputtext'
 import { Password } from 'primereact/password'
 import { Button } from 'primereact/button'
 import { Controller, useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 const GOOGLE_RECAPTCHA_KEY = import.meta.env.VITE_GOOGLE_RECAPTCHA_KEY ?? ''
 
@@ -41,6 +42,7 @@ const LoginPage = () => {
 
   return (
     <main className="w-full h-screen flex">
+      <h1 className="absolute top-5 left-5 text-xl font-bold">Discount Pro</h1>
       <div className="w-full h-full flex items-center">
         <div className="max-w-md w-full mx-auto">
           <h3 className="text-2xl font-bold">¡Bienvenido a Discount Pro!</h3>
@@ -111,6 +113,12 @@ const LoginPage = () => {
             </div>
 
             <Button className="justify-center">Iniciar sesión</Button>
+            <div className="flex justify-center gap-1 text-sm">
+              <span>¿No tienes una cuenta?</span>
+              <Link to="sign-up" className="text-indigo-500">
+                Regístrate aquí
+              </Link>
+            </div>
           </form>
         </div>
       </div>
