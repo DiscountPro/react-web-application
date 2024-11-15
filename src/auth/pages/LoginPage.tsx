@@ -115,7 +115,7 @@ const LoginPage = () => {
             <Button className="justify-center">Iniciar sesión</Button>
             <div className="flex justify-center gap-1 text-sm">
               <span>¿No tienes una cuenta?</span>
-              <Link to="sign-up" className="text-indigo-500">
+              <Link to="/sign-up" className="text-indigo-500">
                 Regístrate aquí
               </Link>
             </div>

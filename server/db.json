@@ -31,6 +31,14 @@
       "ruc": "9876543210987",
       "companyName": "Company B",
       "role": "CLIENT"
+    },
+    {
+      "username": "homeyparkpe",
+      "password": "admin123",
+      "role": "Cliente",
+      "companyName": "Homey Park S.R.L",
+      "ruc": "15981237871",
+      "id": 5
     }
   ],
   "letters": [

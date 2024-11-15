@@ -1,7 +1,10 @@
 import logo from '@app/assets/img/logo.png'
+import useAuth from '@app/auth/hooks/useAuth'
 import { Button } from 'primereact/button'
 
 const NavSidebar = () => {
+  const { logout, user } = useAuth()
+
   return (
     <div className="shrink-0 w-64 text-white bg-slate-800 flex flex-col">
       <header className="px-4 py-6">
@@ -19,10 +22,15 @@ const NavSidebar = () => {
       <div className="h-full px-4 py-2">{'// TODO'}</div>
       <div className="px-4 py-6 flex items-center gap-2">
         <div className="w-full">
-          <p className="text-xl font-bold">Interbank</p>
-          <p className="text-lg">Empresa</p>
+          <p className="text-xl font-bold">{user?.companyName}</p>
+          <p className="text-lg">{user?.role}</p>
         </div>
-        <Button icon="pi pi-sign-out" text className="text-white shrink-0" />
+        <Button
+          icon="pi pi-sign-out"
+          text
+          className="text-white shrink-0"
+          onClick={logout}
+        />
       </div>
     </div>
   )
