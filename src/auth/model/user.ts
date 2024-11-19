@@ -11,4 +11,5 @@ export enum UserRole {
   ADMIN = 'ADMINISTRATOR',
   CREDITOR = 'CREDITOR',
   CLIENT = 'CLIENT',
+  BANK = 'BANK',
 }

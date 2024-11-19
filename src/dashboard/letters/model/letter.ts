@@ -6,6 +6,7 @@ export interface Letter {
   expirationDate: string
   interestRate: number
   interestRateType: InterestRateType
+  interestRateFrequencyDays: number
   capitalizationDays?: number
   clientId: number
   ownerId: number

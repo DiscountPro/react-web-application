@@ -1,6 +1,7 @@
 import logo from '@app/assets/img/logo.png'
 import useAuth from '@app/auth/hooks/useAuth'
 import { Button } from 'primereact/button'
+import { NavLink } from 'react-router-dom'
 
 const NavSidebar = () => {
   const { logout, user } = useAuth()
@@ -19,7 +20,28 @@ const NavSidebar = () => {
           Discount PRO
         </h1>
       </header>
-      <div className="h-full px-4 py-2">{'// TODO'}</div>
+      <div className="h-full px-4 py-2">
+        <nav>
+          <ul className="flex flex-col gap-2">
+            <li>
+              <NavLink
+                to="/letters"
+                className="block py-2 px-4 rounded hover:bg-slate-700"
+              >
+                Letras
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/discount-letter"
+                className="block py-2 px-4 rounded hover:bg-slate-700"
+              >
+                Descuento de letras
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </div>
       <div className="px-4 py-6 flex items-center gap-2">
         <div className="w-full">
           <p className="text-xl font-bold">{user?.companyName}</p>

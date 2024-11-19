@@ -26,7 +26,7 @@ const defaultValues: FormState = {
   ruc: '',
 }
 
-const userRoleOptions = [UserRole.ADMIN, UserRole.CREDITOR, UserRole.CLIENT]
+const userRoleOptions = [UserRole.BANK, UserRole.CREDITOR, UserRole.CLIENT]
 
 const SignUpPage = () => {
   const [loading, setLoading] = useState(false)
