@@ -12,7 +12,7 @@ import { formatCurrency, formatDate } from '@app/shared/utils/format'
 import { User, UserRole } from '@app/auth/model/user'
 import useAuth from '@app/auth/hooks/useAuth'
 import { Button } from 'primereact/button'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   AutoComplete,
   AutoCompleteCompleteEvent,
@@ -24,6 +24,7 @@ import { Calendar } from 'primereact/calendar'
 import { Dialog } from 'primereact/dialog'
 import LetterService from '../services/letterService'
 import { Nullable } from 'primereact/ts-helpers'
+import { Toast } from 'primereact/toast'
 
 const defaultFormValues = {
   currency: LetterCurrency.SOLES,
@@ -56,6 +57,8 @@ const LettersListPage = () => {
   const [listData, setListData] = useState<Array<Letter & { client: string }>>(
     []
   )
+
+  const toast = useRef<Toast>(null)
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: defaultFormValues,
@@ -97,8 +100,10 @@ const LettersListPage = () => {
   const handleSearch = (event: AutoCompleteCompleteEvent) => {
     const query = event.query.toLowerCase()
 
-    const filteredItems = profiles.filter((p) =>
-      p.companyName.toLowerCase().includes(query)
+    const filteredItems = profiles.filter(
+      (p) =>
+        p.companyName.toLowerCase().includes(query) &&
+        p.role === UserRole.CLIENT
     )
 
     if (filteredItems.length === 0) return setItems(filteredItems)
@@ -143,8 +148,34 @@ const LettersListPage = () => {
       setVisible(false)
       reset()
       setClient(null)
+      toast.current?.show({
+        severity: 'success',
+        summary: 'Registro completo',
+        detail: 'Se registro la letra con éxito.',
+        life: 3000,
+      })
     } catch (err) {
       console.error(err)
+    }
+  }
+
+  const onDeleteLetter = async (id: number) => {
+    try {
+      await letterService.delete(id)
+      setListData((prev) => prev.filter((letter) => letter.id !== id))
+      toast.current?.show({
+        severity: 'success',
+        summary: 'Eliminación completo',
+        detail: 'Se elimino la letra con éxito.',
+        life: 2000,
+      })
+    } catch {
+      toast.current?.show({
+        severity: 'error',
+        summary: 'Error al eliminar',
+        detail: 'Ocurrió un error al eliminar la letra.',
+        life: 2000,
+      })
     }
   }
 
@@ -185,7 +216,7 @@ const LettersListPage = () => {
         ></Column>
         <Column
           header="Acciones"
-          body={() => {
+          body={(letter: Letter) => {
             const role = user?.role
 
             if (role === UserRole.CREDITOR) {
@@ -197,6 +228,7 @@ const LettersListPage = () => {
                     size="small"
                     raised
                     severity="danger"
+                    onClick={() => onDeleteLetter(letter.id)}
                   />
                 </div>
               )
@@ -449,6 +481,7 @@ const LettersListPage = () => {
           <Button label="Registrar letra" />
         </form>
       </Dialog>
+      <Toast ref={toast} position="bottom-right" />
     </BasePage>
   )
 }

@@ -90,22 +90,6 @@
         "finalExpenses": 400
       },
       "id": 3
-    },
-    {
-      "currency": "SOLES",
-      "amount": 1000,
-      "issueDate": "2024-11-21T05:00:00.000Z",
-      "expirationDate": "2024-11-29T05:00:00.000Z",
-      "interestRate": 24,
-      "interestRateType": "EFFECTIVE",
-      "capitalizationDays": 90,
-      "clientId": 4,
-      "ownerId": 1,
-      "expenses": {
-        "initialExpenses": 0,
-        "finalExpenses": 0
-      },
-      "id": 4
     }
   ]
 }
