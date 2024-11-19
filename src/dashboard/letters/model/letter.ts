@@ -7,13 +7,12 @@ export interface Letter {
   interestRate: number
   interestRateType: InterestRateType
   capitalizationDays?: number
-  expenseId: number
   clientId: number
   ownerId: number
+  expenses: LetterExpenses
 }
 
 export interface LetterExpenses {
-  id: number
   initialExpenses: number
   finalExpenses: number
 }
@@ -26,4 +25,17 @@ export enum LetterCurrency {
 export enum InterestRateType {
   NOMINAL = 'NOMINAL',
   EFFECTIVE = 'EFFECTIVE',
+}
+
+export interface CreateLetterDto {
+  currency: LetterCurrency
+  amount: number
+  issueDate: string
+  expirationDate: string
+  interestRate: number
+  interestRateType: InterestRateType
+  capitalizationDays?: number
+  clientId: number
+  ownerId: number
+  expenses: LetterExpenses
 }

@@ -8,7 +8,7 @@ export interface User {
 }
 
 export enum UserRole {
-  ADMIN = 'Administrador',
-  CREDITOR = 'Acreedor',
-  CLIENT = 'Cliente',
+  ADMIN = 'ADMINISTRATOR',
+  CREDITOR = 'CREDITOR',
+  CLIENT = 'CLIENT',
 }

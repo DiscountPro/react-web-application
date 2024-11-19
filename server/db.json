@@ -50,10 +50,62 @@
       "expirationDate": "2025-02-13T08:00:00.000Z",
       "interestRate": 12.5,
       "interestRateType": "NOMINAL",
-      "capitalizationDays": "90",
-      "expenseId": 1,
+      "interestRateFrequencyDays": 360,
+      "capitalizationDays": 90,
+      "expenses": {
+        "initialExpenses": 1000,
+        "finalExpenses": 2000
+      },
       "clientId": 1,
       "ownerId": 2
+    },
+    {
+      "id": 2,
+      "currency": "DOLLARS",
+      "amount": 124.2,
+      "issueDate": "2024-11-13T08:00:00.000Z",
+      "expirationDate": "2025-02-13T08:00:00.000Z",
+      "interestRate": 25.5,
+      "interestRateType": "EFFECTIVE",
+      "interestRateFrequencyDays": 180,
+      "expenses": {
+        "initialExpenses": 1000,
+        "finalExpenses": 2000
+      },
+      "clientId": 1,
+      "ownerId": 2
+    },
+    {
+      "currency": "DOLLARS",
+      "amount": 1200,
+      "issueDate": "2024-11-20T05:00:00.000Z",
+      "expirationDate": "2024-11-23T05:00:00.000Z",
+      "interestRate": 24,
+      "interestRateType": "EFFECTIVE",
+      "capitalizationDays": 90,
+      "clientId": 5,
+      "ownerId": 1,
+      "expenses": {
+        "initialExpenses": 200,
+        "finalExpenses": 400
+      },
+      "id": 3
+    },
+    {
+      "currency": "SOLES",
+      "amount": 1000,
+      "issueDate": "2024-11-21T05:00:00.000Z",
+      "expirationDate": "2024-11-29T05:00:00.000Z",
+      "interestRate": 24,
+      "interestRateType": "EFFECTIVE",
+      "capitalizationDays": 90,
+      "clientId": 4,
+      "ownerId": 1,
+      "expenses": {
+        "initialExpenses": 0,
+        "finalExpenses": 0
+      },
+      "id": 4
     }
   ]
 }

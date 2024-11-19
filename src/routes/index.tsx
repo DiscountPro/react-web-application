@@ -3,15 +3,17 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom'
-import RootLayout from '../layout/RootLayout'
-import LettersListPage from '@app/letters/pages/LettersListPage'
-import LetterService from '@app/letters/services/letterService'
-import type { Letter } from '@app/letters/model/letter'
+import RootLayout from '../dashboard/shared/layout/RootLayout'
+import LettersListPage from '@app/dashboard/letters/pages/LettersListPage'
+import LetterService from '@app/dashboard/letters/services/letterService'
+import type { Letter } from '@app/dashboard/letters/model/letter'
 import LoginPage from '@app/auth/pages/LoginPage'
 import SignUpPage from '@app/auth/pages/SignUpPage'
 import { ProtectedRoute } from '@app/auth/utils/ProtectedRoute'
+import ProfileService from '@app/dashboard/profile/services/profileService'
 
 const letterService = new LetterService()
+const profileService = new ProfileService()
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,7 +35,10 @@ const router = createBrowserRouter(
             const letters = await letterService.getAll<Letter>({
               signal: request.signal,
             })
-            return letters
+
+            const profiles = await profileService.getAll()
+
+            return { letters, profiles }
           }}
         />
         <Route path="*" element={<div>404</div>} />
