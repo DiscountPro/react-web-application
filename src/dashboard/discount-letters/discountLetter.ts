@@ -20,3 +20,5 @@ export interface GetDiscountLetterDto {
   discountPercentage: number
   discountDate: string
 }
+
+export type CreateDiscountLetterDto = Omit<GetDiscountLetterDto, 'id'>

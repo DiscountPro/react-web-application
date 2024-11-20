@@ -11,6 +11,7 @@ export interface Letter {
   clientId: number
   ownerId: number
   expenses: LetterExpenses
+  isDiscounted: boolean
 }
 
 export interface LetterExpenses {
@@ -38,5 +39,7 @@ export interface CreateLetterDto {
   capitalizationDays?: number
   clientId: number
   ownerId: number
+  interestRateFrequencyDays: number
   expenses: LetterExpenses
+  isDiscounted: boolean
 }

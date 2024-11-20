@@ -202,7 +202,10 @@ const DiscountLettersPage = () => {
             </div>
           </div>
           <div className="grid grid-cols-3 gap-x-4">
-            <SummaryStat title="Valor entregado acumulado" className="shrink-0">
+            <SummaryStat
+              title="Estadísticas valor entregado"
+              className="shrink-0"
+            >
               {(() => {
                 const soles = totalPayValue.soles / countLetters.soles
                 const dollars = totalPayValue.dollars / countLetters.dollars
@@ -210,36 +213,57 @@ const DiscountLettersPage = () => {
                 return (
                   <>
                     <p className="text-sm leading-8">
-                      <span className="font-semibold">En soles: </span>
-                      <span>{formatCurrency(soles, { currency: 'PEN' })}</span>
-                    </p>
-                    <p className="text-sm leading-8">
-                      <span className="font-semibold">En dolares: </span>
+                      <span className="font-semibold">Promedio en soles: </span>
                       <span>
-                        {formatCurrency(dollars, { currency: 'USD' })}
-                      </span>
-                    </p>
-                    <p className="text-sm leading-8">
-                      <span className="font-semibold">Total (soles): </span>
-                      <span>
-                        {formatCurrency(soles + dollars * exchangeRate, {
+                        {formatCurrency(Number.isNaN(soles) ? 0 : soles, {
                           currency: 'PEN',
                         })}
                       </span>
                     </p>
                     <p className="text-sm leading-8">
-                      <span className="font-semibold">En dolares: </span>
+                      <span className="font-semibold">
+                        Promedio en dolares:{' '}
+                      </span>
                       <span>
-                        {formatCurrency(dollars + soles / exchangeRate, {
+                        {formatCurrency(Number.isNaN(dollars) ? 0 : dollars, {
                           currency: 'USD',
                         })}
+                      </span>
+                    </p>
+                    <p className="text-sm leading-8">
+                      <span className="font-semibold">Total (soles): </span>
+                      <span>
+                        {formatCurrency(
+                          Number.isNaN(soles + dollars * exchangeRate)
+                            ? 0
+                            : soles + dollars * exchangeRate,
+                          {
+                            currency: 'PEN',
+                          }
+                        )}
+                      </span>
+                    </p>
+                    <p className="text-sm leading-8">
+                      <span className="font-semibold">Total (dolares): </span>
+                      <span>
+                        {formatCurrency(
+                          Number.isNaN(dollars + soles / exchangeRate)
+                            ? 0
+                            : dollars + soles / exchangeRate,
+                          {
+                            currency: 'USD',
+                          }
+                        )}
                       </span>
                     </p>
                   </>
                 )
               })()}
             </SummaryStat>
-            <SummaryStat title="Valor recibido acumulado" className="shrink-0">
+            <SummaryStat
+              title="Estadísticas de valor recibido"
+              className="shrink-0"
+            >
               {(() => {
                 const soles = totalReceivedValue.soles / countLetters.soles
                 const dollars =
@@ -248,36 +272,54 @@ const DiscountLettersPage = () => {
                 return (
                   <>
                     <p className="text-sm leading-8">
-                      <span className="font-semibold">En soles: </span>
-                      <span>{formatCurrency(soles, { currency: 'PEN' })}</span>
-                    </p>
-                    <p className="text-sm leading-8">
-                      <span className="font-semibold">En dolares: </span>
+                      <span className="font-semibold">Promedio en soles: </span>
                       <span>
-                        {formatCurrency(dollars, { currency: 'USD' })}
-                      </span>
-                    </p>
-                    <p className="text-sm leading-8">
-                      <span className="font-semibold">Total (soles): </span>
-                      <span>
-                        {formatCurrency(soles + dollars * exchangeRate, {
+                        {formatCurrency(Number.isNaN(soles) ? 0 : soles, {
                           currency: 'PEN',
                         })}
                       </span>
                     </p>
                     <p className="text-sm leading-8">
-                      <span className="font-semibold">En dolares: </span>
+                      <span className="font-semibold">
+                        Promedio en dolares:{' '}
+                      </span>
                       <span>
-                        {formatCurrency(dollars + soles / exchangeRate, {
+                        {formatCurrency(Number.isNaN(dollars) ? 0 : dollars, {
                           currency: 'USD',
                         })}
+                      </span>
+                    </p>
+                    <p className="text-sm leading-8">
+                      <span className="font-semibold">Total (soles): </span>
+                      <span>
+                        {formatCurrency(
+                          Number.isNaN(soles + dollars * exchangeRate)
+                            ? 0
+                            : soles + dollars * exchangeRate,
+                          {
+                            currency: 'PEN',
+                          }
+                        )}
+                      </span>
+                    </p>
+                    <p className="text-sm leading-8">
+                      <span className="font-semibold">Total (dolares): </span>
+                      <span>
+                        {formatCurrency(
+                          Number.isNaN(dollars + soles / exchangeRate)
+                            ? 0
+                            : dollars + soles / exchangeRate,
+                          {
+                            currency: 'USD',
+                          }
+                        )}
                       </span>
                     </p>
                   </>
                 )
               })()}
             </SummaryStat>
-            <SummaryStat title="TCEA Promedio" className="shrink-0">
+            <SummaryStat title="Estadísticas de TCEA " className="shrink-0">
               {(() => {
                 const avgSoles = +(avgTCEA.soles * 100).toFixed(7)
                 const avgDollars = +(avgTCEA.dollars * 100).toFixed(7)
@@ -285,12 +327,12 @@ const DiscountLettersPage = () => {
                 return (
                   <>
                     <p className="text-sm leading-8">
-                      <span className="font-semibold">En soles: </span>
-                      <span>{avgSoles}%</span>
+                      <span className="font-semibold">Promedio en soles: </span>
+                      <span>{Number.isNaN(avgSoles) ? 0 : avgSoles}%</span>
                     </p>
                     <p className="text-sm leading-8">
                       <span className="font-semibold">En dolares: </span>
-                      <span>{avgDollars}%</span>
+                      <span>{Number.isNaN(avgDollars) ? 0 : avgDollars}%</span>
                     </p>
                   </>
                 )
@@ -305,7 +347,7 @@ const DiscountLettersPage = () => {
           <Column field="id" header="#" />
           <Column
             style={{ minWidth: '150px' }}
-            body={(d: DiscountLetter) => d.creditor.companyName}
+            body={(d: DiscountLetter) => d.bank.companyName}
             header="Tercero"
           />
           <Column

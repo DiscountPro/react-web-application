@@ -23,10 +23,10 @@ class DiscountLettersService extends BaseService {
     ])
 
     const data: DiscountLetter[] = discountLetters.map((d) => {
-      const letter = letters.find((l) => l.id === d.letterId)
-      const bank = profiles.find((p) => p.id === d.bankId)
-      const client = profiles.find((p) => p.id === d.clientId)
-      const creditor = profiles.find((p) => p.id === d.creditorId)
+      const letter = letters.find((l) => l.id === d.letterId) as Letter
+      const bank = profiles.find((p) => p.id === d.bankId) as User
+      const client = profiles.find((p) => p.id === d.clientId) as User
+      const creditor = profiles.find((p) => p.id === d.creditorId) as User
 
       return {
         ...d,

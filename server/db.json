@@ -51,83 +51,33 @@
   ],
   "letters": [
     {
-      "id": 1,
       "currency": "SOLES",
-      "amount": 124.2,
-      "issueDate": "2024-11-13T08:00:00.000Z",
-      "expirationDate": "2025-09-13T08:00:00.000Z",
-      "interestRate": 12.5,
-      "interestRateType": "NOMINAL",
-      "interestRateFrequencyDays": 360,
-      "capitalizationDays": 90,
-      "expenses": {
-        "initialExpenses": 30,
-        "finalExpenses": 20
-      },
-      "clientId": 1,
-      "ownerId": 2
-    },
-    {
-      "id": 2,
-      "currency": "DOLLARS",
-      "amount": 124.2,
-      "issueDate": "2024-11-13T08:00:00.000Z",
-      "expirationDate": "2026-02-13T08:00:00.000Z",
-      "interestRate": 25.5,
-      "interestRateType": "EFFECTIVE",
-      "interestRateFrequencyDays": 180,
-      "expenses": {
-        "initialExpenses": 10,
-        "finalExpenses": 20
-      },
-      "clientId": 1,
-      "ownerId": 2
-    },
-    {
-      "currency": "SOLES",
-      "amount": 1200,
+      "amount": 12300,
       "issueDate": "2024-11-20T05:00:00.000Z",
-      "expirationDate": "2027-11-23T05:00:00.000Z",
-      "interestRate": 24,
+      "expirationDate": "2025-11-23T05:00:00.000Z",
+      "interestRate": 23.58,
       "interestRateType": "EFFECTIVE",
-      "capitalizationDays": 90,
-      "interestRateFrequencyDays": 180,
+      "capitalizationDays": 30,
       "clientId": 5,
       "ownerId": 1,
+      "interestRateFrequencyDays": 360,
       "expenses": {
         "initialExpenses": 200,
         "finalExpenses": 400
       },
-      "id": 3
+      "isDiscounted": true,
+      "id": 1
     }
   ],
   "discount-letters": [
     {
-      "id": 1,
-      "letterId": 1,
-      "creditorId": 1,
-      "clientId": 2,
       "bankId": 6,
-      "discountPercentage": 10.5,
-      "discountDate": "2024-11-21T08:00:00.000Z"
-    },
-    {
-      "id": 2,
-      "letterId": 2,
-      "creditorId": 1,
-      "clientId": 2,
-      "bankId": 6,
-      "discountPercentage": 15.0,
-      "discountDate": "2025-01-01T08:00:00.000Z"
-    },
-    {
-      "id": 3,
-      "letterId": 3,
-      "creditorId": 1,
       "clientId": 5,
-      "bankId": 6,
-      "discountPercentage": 12.0,
-      "discountDate": "2024-12-05T08:00:00.000Z"
+      "creditorId": 1,
+      "discountDate": "2025-03-11T05:00:00.000Z",
+      "letterId": 1,
+      "discountPercentage": 14.027568814758018,
+      "id": 1
     }
   ]
 }

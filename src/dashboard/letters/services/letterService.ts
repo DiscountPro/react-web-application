@@ -5,6 +5,14 @@ class LetterService extends BaseService {
     super()
     this.baseURL = `${this.baseURL}/letters`
   }
+
+  async discountLetter(id: number) {
+    const response = await this.http.patch(`${this.baseURL}/${id}`, {
+      isDiscounted: true,
+    })
+
+    return response.data
+  }
 }
 
 export default LetterService

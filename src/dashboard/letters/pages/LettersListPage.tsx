@@ -25,6 +25,7 @@ import { Dialog } from 'primereact/dialog'
 import LetterService from '../services/letterService'
 import { Nullable } from 'primereact/ts-helpers'
 import { Toast } from 'primereact/toast'
+import DiscountLetterDialog from '../components/DiscountLetterDialog'
 
 const defaultFormValues = {
   currency: LetterCurrency.SOLES,
@@ -54,9 +55,9 @@ const LettersListPage = () => {
     profiles: User[]
   }
 
-  const [listData, setListData] = useState<Array<Letter & { client: string }>>(
-    []
-  )
+  const [listData, setListData] = useState<
+    Array<Letter & { clientName: string; client: Nullable<User> }>
+  >([])
 
   const toast = useRef<Toast>(null)
 
@@ -67,13 +68,17 @@ const LettersListPage = () => {
   const [client, setClient] = useState<Nullable<User>>(null)
   const [items, setItems] = useState<User[]>([])
   const [visible, setVisible] = useState(false)
+  const [discountDialogVisible, setDiscountDialogVisible] = useState(false)
+  const [discountLetter, setDiscountLetter] = useState<Nullable<Letter>>(null)
 
   useEffect(() => {
     const listData = letters.map((letter) => ({
       ...letter,
-      client:
+      clientName:
         profiles.find((profile) => profile.id === letter.clientId)
           ?.companyName ?? '',
+      client:
+        profiles.find((profile) => profile.id === letter.clientId) ?? null,
     }))
 
     setListData(listData)
@@ -87,9 +92,9 @@ const LettersListPage = () => {
 
   const interestRateTemplate = (letter: Letter) => {
     if (letter.interestRateType === InterestRateType.NOMINAL)
-      return `${letter.interestRate}% TNA (${letter.capitalizationDays}d)`
+      return `${letter.interestRate}% TN${letter.interestRateFrequencyDays}d (c.${letter.capitalizationDays}d)`
 
-    return `${letter.interestRate}% TEA`
+    return `${letter.interestRate}% TE${letter.interestRateFrequencyDays}d`
   }
 
   const issueDateTemplate = (letter: Letter) => formatDate(letter.issueDate)
@@ -108,7 +113,7 @@ const LettersListPage = () => {
 
     if (filteredItems.length === 0) return setItems(filteredItems)
 
-    setItems([...profiles])
+    setItems([...profiles.filter((p) => p.role === UserRole.CLIENT)])
   }
 
   const onCreateLetter = async (data: typeof defaultFormValues) => {
@@ -128,10 +133,12 @@ const LettersListPage = () => {
           capitalizationDays: data.capitalizationDays,
           clientId: client.id,
           ownerId: user!.id,
+          interestRateFrequencyDays: data.interestRateFrequencyDays,
           expenses: {
             initialExpenses: data.initialExpense,
             finalExpenses: data.finalExpense,
           },
+          isDiscounted: false,
         } satisfies CreateLetterDto
       }
 
@@ -143,7 +150,7 @@ const LettersListPage = () => {
 
       setListData((prev) => [
         ...prev,
-        { ...newData, client: client.companyName },
+        { ...newData, clientName: client.companyName, client: client },
       ])
       setVisible(false)
       reset()
@@ -159,25 +166,25 @@ const LettersListPage = () => {
     }
   }
 
-  const onDeleteLetter = async (id: number) => {
-    try {
-      await letterService.delete(id)
-      setListData((prev) => prev.filter((letter) => letter.id !== id))
-      toast.current?.show({
-        severity: 'success',
-        summary: 'Eliminación completo',
-        detail: 'Se elimino la letra con éxito.',
-        life: 2000,
-      })
-    } catch {
-      toast.current?.show({
-        severity: 'error',
-        summary: 'Error al eliminar',
-        detail: 'Ocurrió un error al eliminar la letra.',
-        life: 2000,
-      })
-    }
-  }
+  // const onDeleteLetter = async (id: number) => {
+  //   try {
+  //     await letterService.delete(id)
+  //     setListData((prev) => prev.filter((letter) => letter.id !== id))
+  //     toast.current?.show({
+  //       severity: 'success',
+  //       summary: 'Eliminación completo',
+  //       detail: 'Se elimino la letra con éxito.',
+  //       life: 2000,
+  //     })
+  //   } catch {
+  //     toast.current?.show({
+  //       severity: 'error',
+  //       summary: 'Error al eliminar',
+  //       detail: 'Ocurrió un error al eliminar la letra.',
+  //       life: 2000,
+  //     })
+  //   }
+  // }
 
   return (
     <BasePage title="Reporte de letras/facturas registradas">
@@ -193,7 +200,7 @@ const LettersListPage = () => {
 
       <DataTable value={listData} tableStyle={{ minWidth: '50rem' }}>
         <Column field="id" header="#"></Column>
-        <Column field="client" header="Cliente"></Column>
+        <Column field="clientName" header="Cliente"></Column>
         <Column
           field="amount"
           header="Monto de letra"
@@ -216,20 +223,35 @@ const LettersListPage = () => {
         ></Column>
         <Column
           header="Acciones"
-          body={(letter: Letter) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          body={(letter: any) => {
             const role = user?.role
 
             if (role === UserRole.CREDITOR) {
               return (
                 <div className="flex justify-center gap-x-2">
                   <Button label="Ver" size="small" raised />
-                  <Button
+                  {!letter?.isDiscounted && (
+                    <Button
+                      label="Descontar"
+                      raised
+                      size="small"
+                      severity="secondary"
+                      onClick={() => {
+                        setDiscountLetter(letter)
+                        setDiscountDialogVisible(true)
+                        setClient(letter.client)
+                      }}
+                    />
+                  )}
+
+                  {/* <Button
                     label="Eliminar"
                     size="small"
                     raised
                     severity="danger"
                     onClick={() => onDeleteLetter(letter.id)}
-                  />
+                  /> */}
                 </div>
               )
             }
@@ -368,6 +390,7 @@ const LettersListPage = () => {
                     dateFormat="dd/mm/yy"
                     mask="99/99/9999"
                     showIcon
+                    icon="pi pi-calendar"
                   />
                 )}
               />
@@ -410,6 +433,7 @@ const LettersListPage = () => {
                     onChange={(e) => field.onChange(e.value)}
                     dateFormat="dd/mm/yy"
                     mask="99/99/9999"
+                    icon="pi pi-calendar"
                     showIcon
                   />
                 )}
@@ -481,6 +505,29 @@ const LettersListPage = () => {
           <Button label="Registrar letra" />
         </form>
       </Dialog>
+      <DiscountLetterDialog
+        visible={discountDialogVisible}
+        onHide={() => setDiscountDialogVisible(false)}
+        letter={discountLetter}
+        banks={profiles.filter((p) => p.role === UserRole.BANK)}
+        client={client}
+        onDiscount={(letter) => {
+          setListData((prev) =>
+            prev.map((l) =>
+              l.id === letter.id ? { ...l, isDiscounted: true } : l
+            )
+          )
+          setDiscountDialogVisible(false)
+          setDiscountLetter(null)
+          setClient(null)
+          toast.current?.show({
+            severity: 'success',
+            summary: 'Descuento completo',
+            detail: 'Se descontó la letra con éxito.',
+            life: 3000,
+          })
+        }}
+      />
       <Toast ref={toast} position="bottom-right" />
     </BasePage>
   )
