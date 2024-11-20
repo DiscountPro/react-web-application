@@ -2,7 +2,8 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 class BaseService {
   protected http: AxiosInstance
-  protected baseURL = 'http://localhost:3000/api/v1'
+  protected baseURL =
+    import.meta.env.VITE_API_URL ?? 'http://localhost:3000/api/v1'
 
   constructor() {
     this.http = axios.create({

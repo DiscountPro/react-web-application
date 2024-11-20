@@ -1,36 +1,12 @@
 {
   "users": [
     {
-      "id": 1,
-      "username": "admin",
+      "username": "discountpro",
       "password": "admin",
-      "ruc": "123456789",
-      "companyName": "Interbank",
-      "role": "CREDITOR"
-    },
-    {
-      "id": 2,
-      "username": "coolbox",
-      "password": "root",
-      "ruc": "9882738123123",
-      "companyName": "Rash Peru S.R.L",
-      "role": "CLIENT"
-    },
-    {
-      "id": 3,
-      "username": "user1",
-      "password": "password1",
-      "ruc": "1234567890123",
-      "companyName": "Company A",
-      "role": "CLIENT"
-    },
-    {
-      "id": 4,
-      "username": "user2",
-      "password": "password2",
-      "ruc": "9876543210987",
-      "companyName": "Company B",
-      "role": "CLIENT"
+      "role": "CREDITOR",
+      "companyName": "Discount Pro StartUp",
+      "ruc": "1098327529",
+      "id": 1
     },
     {
       "username": "homeyparkpe",
@@ -38,7 +14,7 @@
       "role": "CLIENT",
       "companyName": "Homey Park S.R.L",
       "ruc": "15981237871",
-      "id": 5
+      "id": 2
     },
     {
       "username": "bbvape",
@@ -46,38 +22,142 @@
       "role": "BANK",
       "companyName": "BBVA",
       "ruc": "15001238812",
+      "id": 3
+    },
+    {
+      "username": "newclient1",
+      "password": "clientpass1",
+      "role": "CLIENT",
+      "companyName": "Company 1",
+      "ruc": "12345678901",
+      "id": 4
+    },
+    {
+      "username": "newclient2",
+      "password": "clientpass2",
+      "role": "CLIENT",
+      "companyName": "Company 2",
+      "ruc": "10987654321",
+      "id": 5
+    },
+    {
+      "username": "interbankpe",
+      "password": "inter",
+      "role": "BANK",
+      "companyName": "INTERBANK INTERCORP",
+      "ruc": "15001289378",
       "id": 6
+    },
+    {
+      "username": "mygarro",
+      "password": "mygarro",
+      "role": "CLIENT",
+      "companyName": "MY COMPANY GARRO",
+      "ruc": "15001237897",
+      "id": 7
     }
   ],
   "letters": [
     {
-      "currency": "SOLES",
-      "amount": 12300,
-      "issueDate": "2024-11-20T05:00:00.000Z",
-      "expirationDate": "2025-11-23T05:00:00.000Z",
-      "interestRate": 23.58,
+      "currency": "DOLLARS",
+      "amount": 2300,
+      "issueDate": "2024-11-15T05:00:00.000Z",
+      "expirationDate": "2025-08-20T05:00:00.000Z",
+      "interestRate": 40,
       "interestRateType": "EFFECTIVE",
       "capitalizationDays": 30,
-      "clientId": 5,
+      "clientId": 2,
       "ownerId": 1,
-      "interestRateFrequencyDays": 360,
+      "interestRateFrequencyDays": 180,
+      "expenses": {
+        "initialExpenses": 300,
+        "finalExpenses": 230
+      },
+      "isDiscounted": true,
+      "id": 1
+    },
+    {
+      "currency": "SOLES",
+      "amount": 100000,
+      "issueDate": "2024-11-01T05:00:00.000Z",
+      "expirationDate": "2025-02-04T05:00:00.000Z",
+      "interestRate": 25,
+      "interestRateType": "NOMINAL",
+      "capitalizationDays": 15,
+      "clientId": 4,
+      "ownerId": 1,
+      "interestRateFrequencyDays": 60,
       "expenses": {
         "initialExpenses": 200,
         "finalExpenses": 400
       },
       "isDiscounted": true,
-      "id": 1
+      "id": 2
+    },
+    {
+      "currency": "DOLLARS",
+      "amount": 672600,
+      "issueDate": "2024-11-01T05:00:00.000Z",
+      "expirationDate": "2025-11-28T05:00:00.000Z",
+      "interestRate": 32.777,
+      "interestRateType": "NOMINAL",
+      "capitalizationDays": 1,
+      "clientId": 5,
+      "ownerId": 1,
+      "interestRateFrequencyDays": 120,
+      "expenses": {
+        "initialExpenses": 5000,
+        "finalExpenses": 2000
+      },
+      "isDiscounted": true,
+      "id": 3
+    },
+    {
+      "currency": "SOLES",
+      "amount": 120000,
+      "issueDate": "2024-11-07T05:00:00.000Z",
+      "expirationDate": "2025-04-30T05:00:00.000Z",
+      "interestRate": 42,
+      "interestRateType": "EFFECTIVE",
+      "capitalizationDays": 30,
+      "clientId": 7,
+      "ownerId": 1,
+      "interestRateFrequencyDays": 120,
+      "expenses": {
+        "initialExpenses": 200,
+        "finalExpenses": 4000
+      },
+      "isDiscounted": false,
+      "id": 4
     }
   ],
   "discount-letters": [
     {
       "bankId": 6,
+      "clientId": 2,
+      "creditorId": 1,
+      "discountDate": "2025-02-21T05:00:00.000Z",
+      "letterId": 1,
+      "discountPercentage": 28.571428571428566,
+      "id": 1
+    },
+    {
+      "bankId": 3,
+      "clientId": 4,
+      "creditorId": 1,
+      "discountDate": "2025-01-16T05:00:00.000Z",
+      "letterId": 2,
+      "discountPercentage": 7.391678895564778,
+      "id": 2
+    },
+    {
+      "bankId": 3,
       "clientId": 5,
       "creditorId": 1,
-      "discountDate": "2025-03-11T05:00:00.000Z",
-      "letterId": 1,
-      "discountPercentage": 14.027568814758018,
-      "id": 1
+      "discountDate": "2025-08-29T05:00:00.000Z",
+      "letterId": 3,
+      "discountPercentage": 21.98117751933155,
+      "id": 3
     }
   ]
 }
